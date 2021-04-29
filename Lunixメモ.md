@@ -77,6 +77,31 @@
 
 - EPELリポジトリ
     - RHEL向け追加パッケージ
-
 - Remiリポジトリ
     - mysqlやPHPの新しいバージョン等を集めているリポジトリ
+
+- sudo yum update システムアップデート
+- sudo yum install epel-release 
+- sudo yum install https://rpms.remirepo.net/enterprise/remi-release-8.rpm
+- yum repolist 有効なリポジトリ確認
+
+#### Apach
+- sudo yum install httpd
+    - httpd -v
+- sudo systemctl enable httpd 起動時 立ち上がるようにする
+
+- ファイヤーウォールの設定
+    - sudo firewall-cmd --permanent --zone=public --add-service=http
+    - sudo firewall-cmd --permanent --zone=public --add-service=https
+    - sudo firewall-cmd --reload
+    - getenforce
+    - sudo vi /etc/selinux/configsudo
+        - selunixをdisableに設定
+    - sudo reboot 再起動
+    - ip addr アドレス確認
+        - ip a　でもおけ
+    - デフォルトでは　ls /var/www/htmlだと思うが、設定ファイル確認　less /etc/httpd/conf/httpd.confで確認。→/DocumentRootで確認
+    - ※動作確認
+        - sudi vi /var/www/html/index.html 作成
+        - ls -la /var/www/html
+        - sudo chown apache:apache /var/www/html/index.htmlで所有者変更
