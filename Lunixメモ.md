@@ -85,7 +85,7 @@
 - sudo yum install https://rpms.remirepo.net/enterprise/remi-release-8.rpm
 - yum repolist 有効なリポジトリ確認
 
-#### Apach
+### Apach
 - sudo yum install httpd
     - httpd -v
 - sudo systemctl enable httpd 起動時 立ち上がるようにする
@@ -105,3 +105,8 @@
         - sudi vi /var/www/html/index.html 作成
         - ls -la /var/www/html
         - sudo chown apache:apache /var/www/html/index.htmlで所有者変更
+
+### PHP
+- yum list available | grep php71-php-common
+- yum --enablerepo=remi-php71 install php php-devel php-mysql php-gd php-mbstring
+    - ※centOS8だとどうなる？？
