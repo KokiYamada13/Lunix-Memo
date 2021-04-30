@@ -101,7 +101,7 @@
     - ip addr アドレス確認
         - ip a　でもおけ
     - デフォルトでは　ls /var/www/htmlだと思うが、設定ファイル確認　less /etc/httpd/conf/httpd.confで確認。→/DocumentRootで確認
-    - ※動作確認
+    - ※動作確認1
         - sudi vi /var/www/html/index.html 作成
         - ls -la /var/www/html
         - sudo chown apache:apache /var/www/html/index.htmlで所有者変更
@@ -109,4 +109,15 @@
 ### PHP
 - yum list available | grep php71-php-common
 - yum --enablerepo=remi-php71 install php php-devel php-mysql php-gd php-mbstring
-    - ※centOS8だとどうなる？？
+    - ※centOS8だとどうなる？？ → centOS8 にはremi-php~はない
+    - sudo dnf module install -y php:remi-7.4
+    - インストールしたらapach再起動　sudo systemctl restart httpd
+    - ※動作確認1 で実施
+
+### Mysql
+- sudo dnf info mysql
+- sudo dnf install @mysql:8.0
+- sudo systemctl start mysqld
+- sudo ststemctl enable mysqld
+- sudo cat /var/log/mysqld.log | grep 'temporary password'
+- mysql_secure_installation
