@@ -114,10 +114,38 @@
     - インストールしたらapach再起動　sudo systemctl restart httpd
     - ※動作確認1 で実施
 
-### Mysql
+### Mysql8.
 - sudo dnf info mysql
 - sudo dnf install @mysql:8.0
 - sudo systemctl start mysqld
 - sudo ststemctl enable mysqld
 - sudo cat /var/log/mysqld.log | grep 'temporary password'
 - mysql_secure_installation
+- sudo vi /etc/my.cnfで　character-set-server = utf8追加
+- sudo systemctl restart mysqld
+- sudo ststemctl enable mysqld
+- systemctl list-unit-files -t service | grep mysqld
+#### ユーザー作成
+- create user 'mybloguser'@'localhost' identified with musql_native_password by '';
+    - だめなら
+    - SHOW VARIABLES LIKE 'validate_password%';
+    - set global validate_password_length=6;
+    - set global validate_password_policy=LOW;
+    - set global validate_password.check_user_name = OFF;
+- create database wp_myblog;
+- grant all privileges on wp_myblog.* to 'mybloguser'@'localhost';
+- flush privileges;
+
+### wordpress
+- yum list | grep wget
+- sudo yum install wget
+- wget https://ja.wordpress.org/latest-ja.tar.gz
+- sudo tar -zxvf latest-ja.tar.gz -C /var/www/
+- sudo chown -R apache:apache wordpress/
+- sudo cp /etc/httpd/conf/httpd.conf /etc/httpd/conf/httpd.conf.org
+- sudo vi /etc/httpd/conf/httpd.conf
+
+####　※お使いのサーバーの PHP では WordPress に必要な MySQL 拡張を利用できないようです。
+- php -m | grep mysql
+    - 何も出なかったら、sudo yum install php-mysql
+    - メモ：　　　Sl(qK5UakI2KwU3@4%
